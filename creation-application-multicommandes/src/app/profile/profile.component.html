@@ -1,0 +1,70 @@
+<div class="container" *ngIf="currentUser; else loggedOut">
+  <header class="jumbotron">
+    <h3>
+      <strong>{{ currentUser.username }}</strong> Profile
+    </h3>
+ 
+  <p>
+    <strong>Token:</strong>
+    {{ currentUser.accessToken.substring(0, 20) }} ...
+    {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}
+  </p>
+  <p>
+    <strong>Email:</strong>
+    {{ currentUser.email }}
+  </p>
+  <strong>Roles:</strong>
+  <ul>
+    <li *ngFor="let role of currentUser.roles">
+      {{ role }}
+    </li>
+  </ul> 
+</header>   
+</div>
+
+<ng-template #loggedOut>
+  Please login.
+</ng-template>
+<div class="col-lg-8" >
+  <div class="card" *ngIf="cartLength>=1" style="margin-top: 30px;">
+    <div class="card-body">
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Your product
+            </mat-panel-title>
+            <mat-panel-description>
+              This is a product saved
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">addedAt</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cart of carts">
+                <th scope="row"><img src="{{cart.pictureUrl}}" class="img-thumbnail" style="width: 100px;"></th>
+                <td>{{cart.addedAt |date}}  </td>
+                <td>{{cart.name}}</td>
+                <td>{{cart.price}}</td>
+                <td>{{cart.quantity}}</td>
+                <td><span class="material-icons" (click)="deleteCart(cart.id, currentUser.id)"
+                    style="cursor: pointer; color: #e15f41;">delete_forever</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+

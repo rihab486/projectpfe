@@ -1,0 +1,43 @@
+<mat-toolbar color=#666 role="banner">
+   <mat-icon mat-button [matMenuTriggerFor]="menu" style="background-color: darkgrey;" class="w3-bar-item w3-button w3-large" > format_align_left
+  </mat-icon>Categories
+
+   <mat-menu #menu="matMenu">
+     <button mat-menu-item *ngFor="let cat of categories"
+       [routerLink]="['/dsiplay-category/', cat.id]">{{cat.name}}
+      </button>
+   </mat-menu> 
+
+<a *ngIf="showAdminBoard"   mat-button [routerLink]="['/admin']" >admin<mat-icon>home</mat-icon>
+  </a>
+ <a *ngIf="showModeratorBoard"   mat-button [routerLink]="['/livreur']" >DilevryMan<mat-icon>home</mat-icon>
+  </a>
+
+   <div class="spacer"></div>
+
+   <div class="col-lg-4">
+    <div class="input-group mb-3" style="margin-top: 10px;">
+      <input type="text" class="form-control" placeholder="Search product" name="name" [(ngModel)]="name">
+      <button  type="button" (click)="search()"><i class="fas fa-search"></i></button>
+    </div></div>
+ 
+  <a mat-button [routerLink]="['/dashboard']" >Home<mat-icon>home</mat-icon>
+  </a>
+  
+  <a *ngIf="isLoggedIn"  mat-button [routerLink]="['/user']"></a>
+  <a class="navbar-nav ml-auto" *ngIf="!isLoggedIn" mat-button type="button" [routerLink]="['/login']"  (click)="login()">
+    login
+  </a>
+
+
+  <a class="navbar-nav ml-auto" *ngIf="isLoggedIn" mat-button type="button"  [routerLink]="['/profile/', user.id]">  <i class="fa fa-quote left"></i> 
+    <img src="assets/rihab.jpg" width="35px">   {{ username }}
+  </a>
+ 
+  <a mat-button type="button"  class="nav-link" (click)="logout()">LogOut</a>
+ <!-- <a mat-button>welcome to Card <mat-icon>add_shopping_cart</mat-icon></a>-->
+
+  </mat-toolbar>
+  
+
+ 

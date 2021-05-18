@@ -1,0 +1,36 @@
+<div class="container" [hidden]="orderFinished">
+    
+  </div>
+  <div class="title"><strong><h2>  Products</h2></strong></div>
+
+  <hr>
+  <div class="card-deck" style="padding-bottom: 40px;">
+    <div class="col-3" *ngFor="let product of products let i = index;">
+      
+          <div class="card-body">
+            <a (click)="sngleProduct(product.id)"><img class="card-img-top img-thumbnail"
+             style="width: 200px; height: 260px; 
+              cursor: pointer;" src={{product.pictureUrl}} alt="image"></a>
+
+              <h4 class="card-title" >
+                {{ product.name }}</h4>
+              <h4 class="card-title" id="price">
+                {{ product.price }}
+              </h4>
+              <h4 class="card-title" id="quantity">
+                quantity= {{ product.quantity }}</h4>
+                <div class="rating">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-o"></i>
+                </div>
+            
+            
+    
+    
+    </div>
+       </div>
+          </div>

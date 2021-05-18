@@ -1,0 +1,22 @@
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Add Category</h5>
+    <mat-progress-bar mode="buffer" *ngIf="progressBar"></mat-progress-bar>
+    <form [formGroup]="myForm" name="category" (ngSubmit)="addCategory()">
+      
+      <div class="form-group col">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="category.name" formControlName="name">
+        <div *ngIf="myForm.controls['name'].invalid &&  myForm.controls['name'].touched " class="alert">
+          <small class="text-danger" *ngIf="myForm.controls['name'].errors?.required" >name is required</small><br>
+          <small class="text-danger" *ngIf="myForm.controls['name'].errors?.pattern">invalid name</small><br>
+          <small class="text-danger" *ngIf="myForm.controls['name'].errors?.minLength" >name must contain 2 caracters at least</small><br>
+          <small class="text-danger" *ngIf="myForm.controls['name'].errors?.maxLength" >name must contain max 7 caracters</small><br>
+       </div></div>
+
+       <div class="form-group col">
+      <button type="submit" [disabled]="myForm.invalid"  class="btn btn-primary">Save</button>
+        </div>
+    </form>
+  </div>
+</div>

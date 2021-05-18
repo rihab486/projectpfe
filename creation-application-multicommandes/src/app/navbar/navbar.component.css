@@ -1,0 +1,54 @@
+.spacer{
+    flex: 1 1 auto;}
+mat-toolbar{
+    width: 500;
+    box-shadow: 0 0 2.5em  rgb(31, 25, 25);
+}
+
+
+body {
+    font-family: 'poppins', sans-serif;
+    font-size: 16px;
+    
+  
+  }
+  .col-lg-5 input[type="text"]{
+    border: 0;
+    background: none;
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    border: 2px solid #272829;
+    padding: 14px 10px;
+    width: 200px;
+    color: black;
+    border-radius: 24px;
+  }
+
+  
+
+  a {
+    margin-right: 20px;
+    color: rgb(10, 11, 12);
+  }
+
+  
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo {
+    height: 40px;
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo:hover {
+    opacity: 0.8;
+  }
+
+  .fa-shopping-cart {
+    font-size: 50px;
+    margin: 10px;
+  }
+ 

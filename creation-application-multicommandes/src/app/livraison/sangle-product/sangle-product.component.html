@@ -1,0 +1,181 @@
+<br>
+<div class="title"><strong><h2> Details Product</h2></strong></div>
+<div class="container" *ngFor="let order of productOrders let i = index;">
+  <div class="row">
+    <div class="col" [hidden]="orderFinished">
+      <div class="pricing-table">
+        <div class="pricing-item pricing-featured">
+          <div class='selected'>Recomend</div>
+          <div class="pricing-title">
+            Product
+          </div>
+          <div class="pricing-value">R${{order.product.price}}.<span class="smallText">90</span>
+          </div>
+
+          <ul class="pricing-features"><br>
+            <h1 style="color: coral;"> {{order.product.name}} </h1>
+            <div class="ratin">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star-o"></i>
+            </div> <h6>avis 1 | ajouter votre commentaire</h6>
+             <h2 style=" color: black;"><strong>Description: </strong></h2><br>
+              <span>
+              <h1 style="color: coral;">  {{order.product.description}} </h1>
+              <p>
+                 La diversité des produits et la livraison à domicile offre
+                  un niveau de confort optimal. Toutefois, le « Click & Collect »
+                   est une alternative qui permet aux clients de récupérer
+                    eux-mêmes les articles commandées en ligne
+              </p>
+              </span>
+            
+          </ul><br>
+          <div class="row" *ngIf="isLoggedIn">
+            <div class="col-5 padding-0" *ngIf="!isProductSelected(order.product)" style="margin-left: 15px">
+              <input type="number" min="0" max="10" class="form-control" [(ngModel)]="order.quantity" />
+            </div>
+            <div class="col-5 padding-0" *ngIf="!isProductSelected(order.product)">
+              <button  (click)="addToCart(order, currentUser.id)" [disabled]="order.quantity <= 0">
+                Add To Cart
+              </button>
+            </div>
+            <div class="col-12" *ngIf="isProductSelected(order.product)">
+              <button  (click)="removeFromCart(order,currentUser.id)">
+                Remove From Cart
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="!isLoggedIn">
+            <p><strong>Please login to buy product</strong> 
+              <button type="submit" class="btn btn-link"
+                (click)="login()">Login</button> </p>
+          </div>
+      
+      </div>
+      </div>
+    </div>
+
+    <div class="col" [hidden]="orderFinished">
+      <img class="card-img-top img-thumbnail" style="width: 100%; height: 570px" src={{order.product.pictureUrl}}
+        alt="image">
+      <div *ngIf="!isProductSelected(order.product)">
+        <input type="hidden" tabindex="0" min="1" max="1" class="form-control" [(ngModel)]="order.quantity" />
+      </div>
+
+      <ul class="list-group list-group-horizontal-sm">
+        <li class="list-group-item" *ngFor="let tag of tags"
+          style="margin-left: 5px; margin-left: 5px; margin-top: 10px; padding: 5px 10px;">
+          <a [routerLink]="['/display-tag/', tag.id]" style="cursor: pointer; color: blue;">{{tag.name}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col" style="padding-right: 74px;">
+      <div >
+        <app-shopping-cart (onOrderFinished)=finishOrder($event) #shoppingCartC [hidden]="orderFinished">
+        </app-shopping-cart>
+      </div>
+
+      <div>
+        <app-orders #ordersC [hidden]="!orderFinished"></app-orders>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<div class="title"><strong><h2> Avis Client </h2></strong></div>
+<div class="container" style="margin-bottom: 30px;" [hidden]="orderFinished">
+  <div class="info-comment">
+    <p><strong>Avis Clients </strong> </p>
+  </div>
+
+  <div class="card col-md-8" *ngIf="currentUser">
+    <div class="card-body">
+      <form>
+        <div class="card" style="width: 140px;" aria-placeholder="sats" >Satisfaction <br>
+          <div class="rating"><strong>Value:</strong>  
+            <i class="fa fa-star-o"></i> 
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>      
+            <i class="fa fa-star-o"></i>      
+            <i class="fa fa-star-o"></i>      
+          </div><br>
+          <div class="rating"><strong>Quality:</strong>
+              <i class="fa fa-star-o"></i>   
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>      
+              <i class="fa fa-star-o"></i>      
+              <i class="fa fa-star-o"></i>      
+          </div><br>
+            <div class="rating"><strong>Price:</strong>  
+              <i class="fa fa-star-o"></i>   
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>      
+              <i class="fa fa-star-o"></i>      
+              <i class="fa fa-star-o"></i>      
+           </div><br>
+        </div><br>
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Title" name="title" [(ngModel)]="comment.title">
+        </div>
+        <div class="mb-3">
+          <textarea class="form-control" rows="3" placeholder="Avis Client" name="message"
+            [(ngModel)]="comment.message"></textarea>
+        </div>
+        <a (click)="addComment(idProduct, currentUser.username)" class="btn btn-primary">Add comment</a>
+
+     </form>
+    </div>
+    </div>
+
+    <div class="card col-md-8" *ngIf="!isLoggedIn">
+      <div class="card-body">
+        <div class="info-comment">
+          <p><strong>Please login to add Comment </strong> <button type="button" class="btn btn-link"
+              (click)="login()">Login</button> </p>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="small-container">
+          <div class="row" >
+            <div class="col-3" style="background-color: rgb(246, 245, 240);" *ngFor="let item of comments">
+              <p><strong> Published At :</strong> {{item.addedAt |date }}</p>
+              <p><strong>Title :</strong>{{item.title}}: </p><br>
+              <p><strong> Satisfaction</strong></p>
+              <div class="card" style="width: 140px;" aria-placeholder="sats" >
+                <i class="fa fa-quote left"></i>    
+                <div class="rating"><strong>value:</strong>  
+                <i class="fa fa-star"></i>   
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>      
+                <i class="fa fa-star"></i>      
+                <i class="fa fa-star"></i>      
+                </div><br>
+                <div class="rating"><strong>Quality:</strong>
+                    <i class="fa fa-star"></i>   
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>      
+                    <i class="fa fa-star"></i>      
+                    <i class="fa fa-star"></i>      
+                    </div><br>
+                    <div class="rating"><strong>Price:</strong>
+                        <i class="fa fa-star"></i>   
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>      
+                        <i class="fa fa-star-o"></i>      
+                        <i class="fa fa-star-o"></i>      
+                        </div></div><br>
+              <p><strong>Avis :</strong> {{item.message}}</p>
+          
+              <img  src="assets/rihab.jpg">
+              <h2 style="text-align: center;"><strong> Added By : {{item.addedBy}}</strong></h2>
+
+            </div></div></div>
+
+</div>

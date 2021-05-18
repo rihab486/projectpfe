@@ -1,0 +1,65 @@
+<div class="row" style="margin-top: 80px;">
+    <div class="col-lg-6 "  >
+      <button type="button" class="btn btn-info" (click)="addCategory(currentUser.id)">Add
+        category</button>
+      <button type="button" class="btn btn-success" (click)="addTag()" style="margin-left: 10px;"
+        >Add tag</button>
+        <ul class="list-group" *ngFor="let cat of categories">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span style="cursor: pointer;" [routerLink]="['/profile/' + user.id + '/categories/', cat.id]"
+              routerLinkActive="router-link-active"> {{cat.name}} </span>
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="addProduct(cat.id)">Add
+              product</button>
+          </li>
+        </ul>
+      </div>
+      
+ </div>
+ <p>bbbb</p>
+
+ <div class="col-lg-8" >
+  <div class="card" *ngIf="cartLength>=1" style="margin-top: 30px;">
+    <div class="card-body">
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Your product
+            </mat-panel-title>
+            <mat-panel-description>
+              This is a product saved
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">addedAt</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cart of carts">
+                <th scope="row"><img src="{{cart.pictureUrl}}" class="img-thumbnail" style="width: 100px;"></th>
+                <td>{{cart.addedAt |date}}  </td>
+                <td>{{cart.name}}</td>
+                <td>{{cart.price}}</td>
+                <td>{{cart.quantity}}</td>
+                <td><span class="material-icons" (click)="deleteCart(cart.id, currentUser.id)"
+                    style="cursor: pointer; color: #e15f41;">delete_forever</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+
+ 
+
+

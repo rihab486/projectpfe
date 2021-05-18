@@ -1,0 +1,49 @@
+<div class="row card-deck">
+    <div class="col-4" *ngFor="let order of productOrders; let i = index">
+      <div class="card text-center">
+        <div class="card-body">
+          <a (click)="sngleProduct(order.product.id)"><img class="card-img-top img-thumbnail"
+              style="width: 200px; height: 260px; cursor: pointer" src="{{ order.product.pictureUrl }}" alt="image" /></a>
+              <h4 class="card-title" >
+                {{ order.product.name }}</h4>
+              <h4 class="card-title" id="price">
+                {{ order.product.price }}
+              </h4>
+              <h4 class="card-title" id="quantity">
+                quantitystock= {{ order.product.quantity }}</h4>
+                <div class="rating">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-o"></i>
+                </div>
+            <hr style="margin-top: 0px !important; margin-bottom: 10px !important" />
+        <div class="row" *ngIf="isLoggedIn">
+          <div class="col-5 padding-0" *ngIf="!isProductSelected(order.product)" style="margin-left: 15px">
+            <input type="number" min="0" max="10" class="form-control" [(ngModel)]="order.quantity" />
+          </div>
+          <div class="col-5 padding-0" *ngIf="!isProductSelected(order.product)">
+            <button style="color: grey;"  (click)="addToCart(order, currentUser.id)" [disabled]="order.quantity <= 0" >
+              Puy Now
+            </button></div>
+          <hr style="margin-top: 0px !important; margin-bottom: 11px !important" />
+          <div class="col-12" *ngIf="isProductSelected(order.product)">
+            <button  style="color: grey;" (click)="removeFromCart(order,currentUser.id)">
+              Remove From Cart
+            </button>
+          </div>
+        </div>
+         
+          <div *ngIf="!isLoggedIn">
+                <p><strong>Please login to buy product</strong>
+                     <button type="button" class="btn btn-link"
+                    (click)="login()">Login</button> </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div><br>
+  
